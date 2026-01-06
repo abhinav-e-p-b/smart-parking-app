@@ -11,32 +11,32 @@
 
 ### 1. Clone Repository
 
-\`\`\`bash
+```bash
 git clone https://github.com/yourusername/smart-parking.git
 cd smart-parking
-\`\`\`
+```
 
 ### 2. Run Setup Script
 
-\`\`\`bash
+```bash
 chmod +x scripts/setup.sh
 ./scripts/setup.sh
-\`\`\`
+```
 
 ### 3. Start Development Servers
 
 Terminal 1 - Backend:
-\`\`\`bash
+```bash
 cd backend
 source venv/bin/activate
 uvicorn main:app --reload --port 8000
-\`\`\`
+```
 
 Terminal 2 - Frontend:
-\`\`\`bash
+```bash
 cd frontend
 npm run dev
-\`\`\`
+```
 
 Access at http://localhost:3000
 
@@ -44,9 +44,9 @@ Access at http://localhost:3000
 
 ### 1. Using Docker Compose
 
-\`\`\`bash
+```bash
 docker-compose up -d
-\`\`\`
+```
 
 Services:
 - Frontend: http://localhost:3000
@@ -55,17 +55,17 @@ Services:
 
 ### 2. View Logs
 
-\`\`\`bash
+```bash
 docker-compose logs -f backend
 docker-compose logs -f frontend
 docker-compose logs -f postgres
-\`\`\`
+```
 
 ### 3. Stop Services
 
-\`\`\`bash
+```bash
 docker-compose down
-\`\`\`
+```
 
 ## Production Deployment
 
@@ -96,7 +96,7 @@ docker-compose down
 3. Clone repository and run setup
 4. Use systemd to manage service:
 
-\`\`\`ini
+```ini
 [Unit]
 Description=Smart Parking Backend
 After=network.target
@@ -108,7 +108,7 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-\`\`\`
+```
 
 #### Database on RDS
 
@@ -138,40 +138,39 @@ WantedBy=multi-user.target
 
 ### Backend (.env)
 
-\`\`\`env
+```env
 DATABASE_URL=postgresql://user:password@host:5432/smart_parking
 SECRET_KEY=your-production-secret-key
 ML_MODELS_DIR=./models
 FRONTEND_URL=https://yourdomain.com
 GOOGLE_MAPS_API_KEY=your_api_key
-\`\`\`
+```
 
 ### Frontend (.env.local)
 
-\`\`\`env
+```env
 NEXT_PUBLIC_API_URL=https://api.yourdomain.com
-NEXT_PUBLIC_GOOGLE_MAPS_KEY=your_api_key
-\`\`\`
+```
 
 ## Database Migrations
 
 ### Create Migration
 
-\`\`\`bash
+```bash
 alembic revision --autogenerate -m "description"
-\`\`\`
+```
 
 ### Run Migration
 
-\`\`\`bash
+```bash
 alembic upgrade head
-\`\`\`
+```
 
 ## Monitoring & Logs
 
 ### Backend Logs
 
-\`\`\`bash
+```bash
 # Local
 tail -f backend/app.log
 
@@ -180,7 +179,7 @@ docker-compose logs -f backend
 
 # Production (e.g., Railway)
 railway logs --service backend
-\`\`\`
+```
 
 ### Performance Monitoring
 
@@ -200,49 +199,49 @@ railway logs --service backend
 
 ### Database Connection Issues
 
-\`\`\`bash
+```bash
 # Test connection
 psql postgresql://user:password@host:5432/smart_parking
 
 # Check logs
 docker-compose logs postgres
-\`\`\`
+```
 
 ### Backend Startup Issues
 
-\`\`\`bash
+```bash
 # Check Python environment
 python --version
 pip list
 
 # Test imports
 python -c "import fastapi; print(fastapi.__version__)"
-\`\`\`
+```
 
 ### Frontend Build Issues
 
-\`\`\`bash
+```bash
 # Clear cache
 rm -rf .next node_modules
 npm install
 npm run build
-\`\`\`
+```
 
 ## Maintenance
 
 ### Regular Backups
 
-\`\`\`bash
+```bash
 # PostgreSQL backup
 pg_dump postgresql://user:password@host:5432/smart_parking > backup.sql
 
 # Restore
 psql postgresql://user:password@host:5432/smart_parking < backup.sql
-\`\`\`
+```
 
 ### Update Dependencies
 
-\`\`\`bash
+```bash
 # Backend
 pip list --outdated
 pip install --upgrade package_name
@@ -250,7 +249,7 @@ pip install --upgrade package_name
 # Frontend
 npm outdated
 npm update
-\`\`\`
+```
 
 ## Security Checklist
 

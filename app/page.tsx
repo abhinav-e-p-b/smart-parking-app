@@ -15,9 +15,11 @@ export default function Home() {
   } | null>(null)
   const [recommendations, setRecommendations] = useState([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSearch = async (address: string) => {
     setLoading(true)
+    setError(null)
     try {
       // Call backend API to get recommendations
       const response = await fetch("/api/predict-availability", {
@@ -25,10 +27,18 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ address }),
       })
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status} ${response.statusText}`)
+      }
+
       const data = await response.json()
       setRecommendations(data.recommendations || [])
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to fetch recommendations"
       console.error("Error fetching recommendations:", error)
+      setError(errorMessage)
+      setRecommendations([])
     } finally {
       setLoading(false)
     }
@@ -43,6 +53,14 @@ export default function Home() {
           {/* Left sidebar with search */}
           <div className="lg:col-span-1">
             <ParkingSearchForm onSearch={handleSearch} loading={loading} />
+
+            {error && (
+              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-700 font-medium">Error</p>
+                <p className="text-red-600 text-sm">{error}</p>
+              </div>
+            )}
+
             {recommendations.length > 0 && (
               <ParkingRecommendations
                 recommendations={recommendations}
