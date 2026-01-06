@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: smart_parking_db
+    environment:
+      POSTGRES_USER: smart_parking_user
+      POSTGRES_PASSWORD: secure_password_change_me
+      POSTGRES_DB: smart_parking
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smart_parking_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smart_parking_backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://smart_parking_user:secure_password_change_me@postgres:5432/smart_parking
+      SECRET_KEY: your-secret-key-change-in-production
+      ML_MODELS_DIR: ./models
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./models:/app/models
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smart_parking_frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    volumes:
+      - ./frontend:/app
+    command: npm run dev
+
+volumes:
+  postgres_data:
