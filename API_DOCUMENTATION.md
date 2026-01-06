@@ -2,17 +2,17 @@
 
 ## Base URL
 
-```
+\`\`\`
 https://api.smartpark.app/
-```
+\`\`\`
 
 ## Authentication
 
 All authenticated endpoints require a JWT token in the Authorization header:
 
-```
+\`\`\`
 Authorization: Bearer <your_token>
-```
+\`\`\`
 
 ## Endpoints
 
@@ -23,44 +23,44 @@ Authorization: Bearer <your_token>
 **POST** `/api/auth/register`
 
 Request:
-```json
+\`\`\`json
 {
   "username": "john_doe",
   "email": "john@example.com",
   "password": "secure_password"
 }
-```
+\`\`\`
 
 Response:
-```json
+\`\`\`json
 {
   "id": 1,
   "username": "john_doe",
   "email": "john@example.com",
   "created_at": "2024-01-15T10:30:00"
 }
-```
+\`\`\`
 
 #### Login
 
 **POST** `/api/auth/login`
 
 Request:
-```json
+\`\`\`json
 {
   "username": "john_doe",
   "password": "secure_password"
 }
-```
+\`\`\`
 
 Response:
-```json
+\`\`\`json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "token_type": "bearer",
   "user_id": 1
 }
-```
+\`\`\`
 
 ### 2. Parking Predictions
 
@@ -69,7 +69,7 @@ Response:
 **POST** `/api/predict-availability`
 
 Request:
-```json
+\`\`\`json
 {
   "time_of_day": 14,
   "day_of_week": 3,
@@ -78,10 +78,10 @@ Request:
   "previous_duration_hours": 2.5,
   "traffic_density": "Medium"
 }
-```
+\`\`\`
 
 Response:
-```json
+\`\`\`json
 {
   "location_id": 1,
   "prediction": "available",
@@ -89,7 +89,7 @@ Response:
   "confidence": 78.0,
   "timestamp": "2024-01-15T14:30:00"
 }
-```
+\`\`\`
 
 **Parameters:**
 - `time_of_day` (int): Hour of day (0-23)
@@ -104,16 +104,16 @@ Response:
 **POST** `/api/nearby-parkings`
 
 Request:
-```json
+\`\`\`json
 {
   "latitude": 40.7128,
   "longitude": -74.0060,
   "radius_km": 5.0
 }
-```
+\`\`\`
 
 Response:
-```json
+\`\`\`json
 {
   "recommendations": [
     {
@@ -138,7 +138,7 @@ Response:
     }
   ]
 }
-```
+\`\`\`
 
 ### 3. Bookings
 
@@ -149,15 +149,15 @@ Response:
 Headers: `Authorization: Bearer <token>`
 
 Request:
-```json
+\`\`\`json
 {
   "parking_slot_id": 123,
   "check_in_time": "2024-01-15T14:30:00"
 }
-```
+\`\`\`
 
 Response:
-```json
+\`\`\`json
 {
   "id": 1,
   "user_id": 1,
@@ -169,7 +169,7 @@ Response:
   "amount_paid": null,
   "created_at": "2024-01-15T14:30:00"
 }
-```
+\`\`\`
 
 #### Get Booking Details
 
@@ -186,14 +186,14 @@ Response: Same as Create Booking response
 Headers: `Authorization: Bearer <token>`
 
 Response:
-```json
+\`\`\`json
 {
   "booking_id": 1,
   "duration_hours": 2.5,
   "amount_paid": 13.75,
   "status": "completed"
 }
-```
+\`\`\`
 
 ### 4. Parking Areas
 
@@ -202,7 +202,7 @@ Response:
 **GET** `/api/parking-areas?skip=0&limit=100`
 
 Response:
-```json
+\`\`\`json
 [
   {
     "id": 1,
@@ -214,7 +214,7 @@ Response:
     "price_per_hour": 5.50
   }
 ]
-```
+\`\`\`
 
 #### Get Specific Parking Area
 
@@ -225,32 +225,32 @@ Response: Single parking area object
 ## Error Responses
 
 ### 400 Bad Request
-```json
+\`\`\`json
 {
   "detail": "Invalid request parameters"
 }
-```
+\`\`\`
 
 ### 401 Unauthorized
-```json
+\`\`\`json
 {
   "detail": "Invalid authentication credentials"
 }
-```
+\`\`\`
 
 ### 404 Not Found
-```json
+\`\`\`json
 {
   "detail": "Resource not found"
 }
-```
+\`\`\`
 
 ### 500 Internal Server Error
-```json
+\`\`\`json
 {
   "detail": "Internal server error"
 }
-```
+\`\`\`
 
 ## Rate Limiting
 
@@ -271,14 +271,14 @@ Response: Single parking area object
 ### Complete Workflow
 
 1. **Register/Login**
-```bash
+\`\`\`bash
 curl -X POST http://localhost:8000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username":"john","password":"password"}'
-```
+\`\`\`
 
 2. **Get Recommendations**
-```bash
+\`\`\`bash
 curl -X POST http://localhost:8000/api/nearby-parkings \
   -H "Content-Type: application/json" \
   -d '{
@@ -286,10 +286,10 @@ curl -X POST http://localhost:8000/api/nearby-parkings \
     "longitude": -74.0060,
     "radius_km": 5.0
   }'
-```
+\`\`\`
 
 3. **Make Booking**
-```bash
+\`\`\`bash
 curl -X POST http://localhost:8000/api/bookings \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
@@ -297,13 +297,13 @@ curl -X POST http://localhost:8000/api/bookings \
     "parking_slot_id": 123,
     "check_in_time": "2024-01-15T14:30:00"
   }'
-```
+\`\`\`
 
 4. **Checkout**
-```bash
+\`\`\`bash
 curl -X POST http://localhost:8000/api/bookings/1/checkout \
   -H "Authorization: Bearer YOUR_TOKEN"
-```
+\`\`\`
 
 ## Pagination
 
@@ -313,17 +313,17 @@ Endpoints that return lists support pagination:
 - `limit` (int): Number of records to return (default: 100, max: 1000)
 
 Example:
-```bash
+\`\`\`bash
 GET /api/parking-areas?skip=0&limit=50
-```
+\`\`\`
 
 ## Filtering
 
 Some endpoints support filtering:
 
-```bash
+\`\`\`bash
 GET /api/bookings?status=completed&user_id=1
-```
+\`\`\`
 
 ## Webhooks (Coming Soon)
 

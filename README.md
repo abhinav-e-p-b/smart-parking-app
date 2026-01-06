@@ -12,7 +12,7 @@ An intelligent parking recommendation system powered by Machine Learning that he
 
 ## Project Structure
 
-```
+\`\`\`
 smart-parking/
 ├── backend/
 │   ├── main.py              # FastAPI application
@@ -34,7 +34,7 @@ smart-parking/
 ├── ARCHITECTURE.md          # System design documentation
 └── README.md
 
-```
+\`\`\`
 
 ## Technology Stack
 
@@ -59,7 +59,7 @@ smart-parking/
 
 ### Backend Setup
 
-```bash
+\`\`\`bash
 cd backend
 
 # Create virtual environment
@@ -77,11 +77,11 @@ python backend/ml_model.py
 
 # Run server
 uvicorn main:app --reload --port 8000
-```
+\`\`\`
 
 ### Frontend Setup
 
-```bash
+\`\`\`bash
 cd frontend
 
 # Install dependencies
@@ -91,7 +91,7 @@ npm install
 npm run dev
 
 # Open http://localhost:3000
-```
+\`\`\`
 
 ## API Endpoints
 
@@ -99,7 +99,7 @@ npm run dev
 **POST** `/api/predict-availability`
 
 Request:
-```json
+\`\`\`json
 {
   "time_of_day": 14,
   "day_of_week": 3,
@@ -108,10 +108,10 @@ Request:
   "previous_duration_hours": 2.5,
   "traffic_density": "Medium"
 }
-```
+\`\`\`
 
 Response:
-```json
+\`\`\`json
 {
   "location_id": 1,
   "prediction": "available",
@@ -119,22 +119,22 @@ Response:
   "confidence": 78.0,
   "timestamp": "2024-01-15T14:30:00"
 }
-```
+\`\`\`
 
 ### Get Nearby Parkings
 **POST** `/api/nearby-parkings`
 
 Request:
-```json
+\`\`\`json
 {
   "latitude": 40.7128,
   "longitude": -74.0060,
   "radius_km": 5.0
 }
-```
+\`\`\`
 
 Response:
-```json
+\`\`\`json
 {
   "recommendations": [
     {
@@ -159,7 +159,7 @@ Response:
     }
   ]
 }
-```
+\`\`\`
 
 ## Machine Learning Models
 
@@ -183,12 +183,12 @@ Response:
 ## Recommendation Algorithm
 
 **Scoring Formula**:
-```
+\`\`\`
 Score = (0.4 × Availability%) + 
         (0.3 × Distance_Weight) + 
         (0.2 × Traffic_Weight) + 
         (0.1 × Price_Weight)
-```
+\`\`\`
 
 **Weight Explanation**:
 - **Availability (40%)**: Most important - predicts if spot is available

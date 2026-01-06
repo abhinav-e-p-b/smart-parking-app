@@ -5,7 +5,7 @@ The Smart Parking Application predicts parking availability using Machine Learni
 
 ## System Architecture Diagram
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────────────┐
 │                         FRONTEND LAYER                          │
 │  (Next.js Web App - Mobile Responsive)                         │
@@ -49,7 +49,7 @@ The Smart Parking Application predicts parking availability using Machine Learni
 │  - Parking History Table                                        │
 │  - ML Training Data Table                                       │
 └─────────────────────────────────────────────────────────────────┘
-```
+\`\`\`
 
 ## Key Components
 
@@ -80,9 +80,9 @@ The Smart Parking Application predicts parking availability using Machine Learni
 
 ### 5. Recommendation Algorithm
 Weighted scoring formula:
-```
+\`\`\`
 Score = (0.4 × Availability%) + (0.3 × Distance_Weight) + (0.2 × TrafficWeight) + (0.1 × UserPreference)
-```
+\`\`\`
 
 ## Technology Stack
 - **Frontend**: Next.js 16, React, Tailwind CSS, Leaflet/Google Maps API
