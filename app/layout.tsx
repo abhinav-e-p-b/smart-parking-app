@@ -4,25 +4,19 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const geistSans = Geist({ 
-  subsets: ["latin"],
-  variable: "--font-geist-sans"
-})
-
-const geistMono = Geist_Mono({ 
-  subsets: ["latin"],
-  variable: "--font-geist-mono"
-})
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "SmartPark - Find Parking with AI",
+  title: "SmartPark - AI-Powered Parking Solution",
   description:
-    "Discover available parking spots instantly using machine learning. Real-time predictions, smart recommendations, and seamless booking experience.",
-  keywords: ["parking", "smart parking", "AI parking", "parking availability", "parking prediction", "find parking"],
-  authors: [{ name: "SmartPark" }],
+    "Find available parking spots using machine learning. Real-time predictions, smart recommendations, and seamless booking.",
+  generator: "v0.app",
+  keywords: ["parking", "smart parking", "AI parking", "parking availability", "parking prediction"],
+  authors: [{ name: "SmartPark Team" }],
   openGraph: {
-    title: "SmartPark - Find Parking with AI",
-    description: "Discover available parking spots instantly using machine learning predictions",
+    title: "SmartPark - AI-Powered Parking Solution",
+    description: "Find available parking spots using machine learning predictions",
     url: "https://smartpark.app",
     siteName: "SmartPark",
     images: [
@@ -59,8 +53,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="font-sans antialiased">
+    <html lang="en">
+      <body className={`${_geist.className} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>
